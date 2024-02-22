@@ -33,12 +33,12 @@
 <br />
 @foreach (var item in Model)
 {
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card mb-3 bg-dark text-white border-light" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.title)</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.author)</h6>
+                    <h6 class="card-subtitle mb-2">@Html.DisplayFor(modelItem => item.author)</h6>
                     <p class="card-text">Description:<br />@Html.DisplayFor(modelItem => item.description)</p>
                     <br />
                     <p class="card-text">Published on @Html.DisplayFor(modelItem => item.published)</p>
@@ -46,9 +46,9 @@
                     <br />
                     @if (User.IsInRole("Admin"))
                     {
-                        <a class="btn btn-outline-primary" asp-controller="Books" asp-action="Edit" asp-route-id="@item.id">Edit</a>
-                        <a class="btn btn-outline-secondary" asp-controller="Books" asp-action="Details" asp-route-id="@item.id">Details</a>
-                        <a class="btn btn-outline-danger" asp-controller="Books" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        <a class="btn btn-primary" asp-controller="Books" asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                        <a class="btn btn-secondary" asp-controller="Books" asp-action="Details" asp-route-id="@item.id">Details</a>
+                        <a class="btn btn-danger" asp-controller="Books" asp-action="Delete" asp-route-id="@item.id">Delete</a>
                     }
                 </div>
             </div>
