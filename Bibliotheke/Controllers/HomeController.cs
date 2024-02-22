@@ -1,6 +1,8 @@
+using Bibliotheke.Data;
 using Bibliotheke.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Bibliotheke.Controllers
