@@ -4,42 +4,43 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Books</h4>
+<h1>Create a Book</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="title" class="control-label"></label>
+                <label asp-for="title" class="control-label">Title</label>
                 <input asp-for="title" class="form-control" />
                 <span asp-validation-for="title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="author" class="control-label"></label>
+                <label asp-for="author" class="control-label">Author</label>
                 <input asp-for="author" class="form-control" />
                 <span asp-validation-for="author" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
+                <label asp-for="description" class="control-label">Description</label>
                 <input asp-for="description" class="form-control" />
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="published" class="control-label"></label>
+                <label asp-for="published" class="control-label">Published On</label>
                 <input asp-for="published" class="form-control" />
                 <span asp-validation-for="published" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="status" class="control-label"></label>
-                <input asp-for="status" class="form-control" />
+                <label asp-for="status" class="control-label">Status</label>
+                <select asp-for="status" class="form-control">
+                    <option value="Available">Available</option>
+                </select>
                 <span asp-validation-for="status" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" /> |
-                <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+                <a class="btn btn-outline-primary" asp-action="Index">Back to Books</a>
             </div>
         </form>
     </div>
