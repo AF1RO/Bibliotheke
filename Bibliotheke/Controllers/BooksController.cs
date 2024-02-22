@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Bibliotheke.Controllers
 {
+    [Authorize]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
