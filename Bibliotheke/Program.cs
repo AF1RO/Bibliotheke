@@ -25,7 +25,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -40,38 +39,51 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-using(var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    var roles = new[] { "Admin", "User" };
-
-    foreach(var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-}
-
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    string email = "admin@admin.com";
-    string password = "Admin123!";
-    if(await userManager.FindByEmailAsync(email) == null)
-    {
-        var user = new IdentityUser();
-        user.UserName = email;
-        user.Email = email;
-
-        await userManager.CreateAsync(user, password);
-
-        await userManager.AddToRoleAsync(user, "Admin");
-    }
-}
+await InitializeRolesAndUsersAsync(app.Services);
 
 app.MapRazorPages();
 
 app.Run();
+
+static async Task InitializeRolesAndUsersAsync(IServiceProvider services)
+{
+    using (var scope = services.CreateScope())
+    {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        // Initialize roles
+        var roles = new[] { "Admin", "User" };
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                var result = await roleManager.CreateAsync(new IdentityRole(role));
+                if (!result.Succeeded)
+                {
+                    // Log the error or handle it as necessary
+                    throw new InvalidOperationException($"Error creating role: {role}");
+                }
+            }
+        }
+
+        // Initialize admin user
+        string email = Environment.GetEnvironmentVariable("ADMIN_EMAIL") ?? "admin@admin.com";
+        string password = Environment.GetEnvironmentVariable("ADMIN_PASSWORD") ?? "Admin123!";
+        if (await userManager.FindByEmailAsync(email) == null)
+        {
+            var user = new IdentityUser { UserName = email, Email = email };
+            var result = await userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "Admin");
+            }
+            else
+            {
+                // Log the error or handle it as necessary
+                throw new InvalidOperationException($"Error creating user: {email}");
+            }
+        }
+    }
+}
