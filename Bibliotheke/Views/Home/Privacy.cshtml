@@ -1,22 +1,80 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-<p>Your privacy is important to us. It is Bibliotheke's policy to respect your privacy regarding any information we may collect from you across our website.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <nav id="navbar-example3" class="navbar navbar-dark bg-dark flex-column align-items-stretch p-3">
+                <a class="navbar-brand" href="#PrivacyPolicy">Privacy Policy</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#InformationWeCollect">Information We Collect</a>
+                    <a class="nav-link" href="#LogData">Log Data</a>
+                    <a class="nav-link" href="#Cookies">Cookies</a>
+                    <a class="nav-link" href="#ChangesToThisPrivacyPolicy">Changes To This Privacy Policy</a>
+                </nav>
+            </nav>
+        </div>
+        <div class="col-md-8">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                <h1 id="PrivacyPolicy">@ViewData["Title"]</h1>
+                <p>Your privacy is important to us. It is Bibliotheke's policy to respect your privacy regarding any information we may collect from you across our website.</p>
+                <h2 id="InformationWeCollect">Information We Collect</h2>
+                <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p>
+                <p>We don’t share any personally identifying information publicly or with third-parties, except when required to by law.</p>
+                <h2 id="LogData">Log Data</h2>
+                <p>Like most website operators, Bibliotheke collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request. Our purpose in collecting non-personally identifying information is to better understand how our visitors use our website.</p>
+                <h2 id="Cookies">Cookies</h2>
+                <p>We may use “cookies” to collect information. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your computer. If you choose to refuse our cookies, you may not be able to use some portions of our website.</p>
+                <h2 id="ChangesToThisPrivacyPolicy">Changes to This Privacy Policy</h2>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                <p>This Privacy Policy is effective as of today and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Information We Collect</h2>
-<p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p>
+<style>
+    .scrollspy-example {
+        position: relative;
+        height: 300px; 
+        overflow-y: scroll;
+        margin-top: .3rem;
+        padding: 1rem;
+        color: #ffffff;
+        border: 1px solid #2c2f33;
+    }
 
-<p>We don’t share any personally identifying information publicly or with third-parties, except when required to by law.</p>
+    h1{
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
 
-<h2>Log Data</h2>
-<p>Like most website operators, Bibliotheke collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request. Our purpose in collecting non-personally identifying information is to better understand how our visitors use our website.</p>
+    h2 {
+        margin-top: 50px;
+        margin-bottom: 10px;
+    }
 
-<h2>Cookies</h2>
-<p>We may use “cookies” to collect information. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your computer. If you choose to refuse our cookies, you may not be able to use some portions of our website.</p>
 
-<h2>Changes to This Privacy Policy</h2>
-<p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+    #navbar-example3 {
+        background-color: #343a40;
+        padding: 15px;
+        border-right: 20px solid #2c2f33;
+        border: 1px solid #2c2f33;
+    }
 
-<p>This Privacy Policy is effective as of today and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.</p>
+    #navbar-example3 .nav-link {
+        border-bottom: 2px solid #343a40;
+        color: #e0e0e0;
+    }
+
+    #navbar-example3 .nav-link.active {
+        background-color: #007bff;
+        color: white;
+        border-bottom-color: transparent;
+    }
+
+
+</style>

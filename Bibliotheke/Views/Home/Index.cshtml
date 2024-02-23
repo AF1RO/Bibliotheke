@@ -6,16 +6,241 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+
+    main {
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+        margin-top: 15px;
+    }
+
+    section {
+        margin-top: 50px;
+        margin-bottom: 40px;
+    }
+
+    .section h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .book-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .book-grid img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .blog-posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .blog-post, .event {
+        background-color: #343a40;
+        border: 1px solid #2c2f33;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+
+    .scrollspy-example {
+        position: relative;
+        height: 600px;
+        overflow: auto;
+        border: 2px solid #2c2f33;
+    }
+
+    
+    #navbar-example3 {
+        background-color: #343a40;
+        padding: 15px; 
+        border-right: 2px solid #2c2f33; 
+        border: 1px solid #2c2f33;
+    }
+
+    #navbar-example3 .nav-link {
+            border-bottom: 2px solid #343a40;
+        color: #e0e0e0;
+    }
+
+    #navbar-example3 .nav-link.active {
+        background-color: #007bff;
+        color: white;
+        border-bottom-color: transparent;
+    }
+
+
+    .card {
+        background-color: #343a40;
+        border: 1px solid #2c2f33;
+    }
+
+    .card-body, .card-title, .card-text {
+        color: #e0e0e0;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <nav id="navbar-example3" class="navbar navbar-dark bg-dark flex-column align-items-stretch p-3">
+                <a class="navbar-brand" href="#welcome">Discover!</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#featured-books">Featured Books</a>
+                    <a class="nav-link" href="#best-sellers">Best Sellers</a>
+                    <a class="nav-link" href="#new-releases">New Releases</a>
+                    <a class="nav-link" href="#about-us">About Us</a>
+                    <a class="nav-link" href="#events">Events</a>
+                    <a class="nav-link" href="#blog">Blog</a>
+                </nav>
+            </nav>
+        </div>
+        <div class="col-md-8">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                <main>
+                    <section id="welcome"><center><h1>Welcome To Bibliotheke!</h1></center></section>
+                    <section id="featured-books" class="featured-books">
+                        <h2>Featured Books</h2>
+                        <div class="book-grid"></div>
+                    </section>
+
+                    <section id="best-sellers" class="best-sellers">
+                        <h2>Best Sellers</h2>
+                        <div class="book-grid"></div>
+                    </section>
+
+                    <section id="new-releases" class="new-releases">
+                        <h2>New Releases</h2>
+                        <div class="book-grid"></div>
+                    </section>
+
+                    <section id="about-us" class="about-us">
+                        <h2>About Us</h2>
+                        <p>Welcome to Our Bookstore! We pride ourselves on offering a vast selection of books for all ages and interests. Discover your next read with us.</p>
+                        <img src="path/to/about-us-image.jpg" alt="Inside Our Bookstore">
+                    </section>
+
+                    <section id="events" class="events">
+                        <h2>Upcoming Events</h2>
+                        <div class="event-list"></div>
+                    </section>
+
+                    <section id="blog" class="blog">
+                        <h2>From Our Blog</h2>
+                        <div class="blog-posts"></div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
 </div>
 
-@if (User.IsInRole("Admin"))
-{
-    <h1>Hello Admin</h1>
-}
-else
-{
-    <h1>Hello User</h1>
-}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function populateBooks(sectionId, books) {
+            const section = document.querySelector(sectionId + ' .book-grid');
+            books.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">${book.title}</h5>
+                            <p class="card-text">${book.author}</p>
+                        </div>
+                    </div>
+                `;
+                section.appendChild(bookItem);
+            });
+        }
+
+        function populateEvents(events) {
+            const eventList = document.querySelector('.event-list');
+            events.forEach(event => {
+                const eventItem = document.createElement('div');
+                eventItem.classList.add('event');
+                eventItem.innerHTML = `
+                    <h5>${event.name}</h5>
+                    <p>${event.date}</p>
+                `;
+                eventList.appendChild(eventItem);
+            });
+        }
+
+        function populateBlogPosts(posts) {
+            const blogPostsSection = document.querySelector('.blog-posts');
+            posts.forEach(post => {
+                const postItem = document.createElement('div');
+                postItem.classList.add('blog-post');
+                postItem.innerHTML = `
+                    <h5>${post.title}</h5>
+                    <p>${post.content}</p>
+                    <small>${post.date}</small>
+                `;
+                blogPostsSection.appendChild(postItem);
+            });
+        }
+
+        const featuredBooks = [
+            { title: "The Mystery of the Missing Manuscript", author: "Amanda Write" },
+            { title: "Journey Through the Pages", author: "Christopher Adventure" },
+            { title: "The Secret of the Old Library", author: "Nancy Storyteller" },
+            { title: "A Tale of Two Authors", author: "Charles Readwell" },
+            { title: "Escape into the Story", author: "Ella Fantasy" }
+        ];
+
+        const bestSellers = [
+            { title: "The Bestseller Book", author: "Famous Author" },
+            { title: "Top of the Charts", author: "Chart Topper" },
+            { title: "The Success Story", author: "Victor Triumph" },
+            { title: "Unputdownable", author: "Page Turner" },
+            { title: "The Award Winner", author: "Prize Novelist" }
+        ];
+
+        const newReleases = [
+            { title: "The Newest Novel", author: "Newbie Author" },
+            { title: "Fresh off the Press", author: "Just Published" },
+            { title: "Brand New Story", author: "Debut Writer" },
+            { title: "Latest and Greatest", author: "Current Favorite" },
+            { title: "New Release Hit", author: "Popular Newcomer" }
+        ];
+
+        const events = [
+            { name: "Author Meet & Greet", date: "March 10th, 2024" },
+            { name: "Book Signing Event", date: "March 15th, 2024" },
+            { name: "Children's Storytime", date: "March 20th, 2024" },
+            { name: "Poetry Reading Night", date: "March 25th, 2024" },
+            { name: "Writing Workshop", date: "April 1st, 2024" },
+            { name: "Book Club Meeting", date: "April 5th, 2024" },
+            { name: "Literary Debate", date: "April 10th, 2024" },
+            { name: "New Authors Showcase", date: "April 15th, 2024" },
+            { name: "Historical Fiction Panel", date: "April 20th, 2024" },
+            { name: "Sci-Fi and Fantasy Expo", date: "April 25th, 2024" }
+        ];
+
+        const blogPosts = [
+            { title: "5 Must-Read Classics", content: "Dive into the world of classic literature with our top picks...", date: "Feb 20, 2024" },
+            { title: "Interview with a Bestselling Author", content: "We sat down with John Doe to discuss his latest novel...", date: "Feb 25, 2024" },
+            { title: "The Rise of E-books", content: "Exploring how digital formats are changing the way we read...", date: "Mar 1, 2024" },
+            { title: "How to Start Your Own Book Club", content: "Follow our guide to starting a successful book club...", date: "Mar 5, 2024" },
+            { title: "The Best Young Adult Novels of the Year", content: "Check out our picks for the best YA novels this year...", date: "Mar 10, 2024" }
+        ];
+
+        populateBooks('#featured-books', featuredBooks);
+        populateBooks('#best-sellers', bestSellers);
+        populateBooks('#new-releases', newReleases);
+        populateEvents(events);
+        populateBlogPosts(blogPosts);
+    });
+
+</script>
